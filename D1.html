@@ -1,0 +1,30 @@
+<script>
+
+var url = 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=201911';
+
+var day = [];
+var result = [];
+
+for(var i = 0; i < 30; i++){
+  if(i<9){
+    day[i] = '0' + (i+1) + '&json';
+  }else{
+    day[i] = `${i+1}` + '&json';
+  }
+
+var new_url = url + day[i];
+let xhr = new XMLHttpRequest();
+
+xhr.open('GET', new_url);
+
+xhr.onload = function(){
+          let data = JSON.parse(this.response);
+          result[i] = `${data[27].exchangedate} : ${data[27].rate}`; 
+          console.log(result[i]);
+  }
+  xhr.send();
+}
+
+
+
+</script>
